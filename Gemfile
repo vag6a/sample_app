@@ -8,6 +8,7 @@ gem 'faker', '1.7.3'
 gem 'will_paginate', '3.1.6'
 gem 'bootstrap-will_paginate', '1.0.0'
 gem 'jquery-rails', '4.3.1'
+gem 'addressable' 
 
 group :development, :test do
   gem 'sqlite3', '1.3.13'
@@ -27,7 +28,7 @@ group :assets do
 end
 
 group :test do
-  gem 'capybara', '1.1.2'
+    gem 'capybara', '2.14.4'
   gem 'factory_girl_rails', '4.1.0'
   gem 'cucumber-rails', '1.2.1', :require => false
   gem 'database_cleaner', '0.7.0'
