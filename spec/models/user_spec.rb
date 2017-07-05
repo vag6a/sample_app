@@ -35,7 +35,7 @@ RSpec.describe User, type: :model do
 
     describe "when e-mail format is invalid" do
         it "shoud be invalid" do
-            addresses = %w[user@foo,com THE_USER_foo.bar.org first_last@foo.]
+            addresses = %w[user@foo,com THE_USER_foo.bar.org first_last@foo. foo@a+b.com foo@a_b.org]
             addresses.each do |a|
                 @user.email = a
                 @user.should_not be_valid
