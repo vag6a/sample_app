@@ -12,7 +12,7 @@ gem 'addressable'
 
 group :development, :test do
   gem 'sqlite3', '1.3.13'
-  gem 'rspec-rails', '3.6.0'
+  gem 'rspec-rails'
   gem 'guard-rspec', '4.7.3'
   gem 'guard-spork'
   gem 'childprocess', '0.3.6'
@@ -28,7 +28,7 @@ group :assets do
 end
 
 group :test do
-    gem 'capybara', '2.14.4'
+    gem 'capybara'
   gem 'factory_girl_rails', '4.1.0'
   gem 'cucumber-rails', '1.2.1', :require => false
   gem 'database_cleaner', '0.7.0'

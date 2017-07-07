@@ -1,0 +1,39 @@
+83 - console room
+139 - DBA support
+635 - DATA ACQ - PEOPLE/PROFILE
+1441 - COMDB2 DBA
+1364 - Jenkins Admin group
+1157 - IB problems triage group
+357  - BAS configurating group
+
+
+If you've tried to use DRQS since the BNA transition, you may have noticed difficulty opening some tickets owned by other groups.
+
+We will NOT get a blanket access but we can add as many bucket as we want which essentially fulfill what we need.
+
+Please send me a list of any additional groups you think we should have access to today.
+
+Here is the list of all Buckets BBNA is permitted to see, including the newly added buckets.
+ 
+33 – MUNIs
+41 - DATA/TPTY 3RD PAR/J COLE
+143 - CORE LAW/S. SZUR
+244 – News Wires
+300 - APP LMN BLAW
+419 – Company updates
+462 – News Indexing
+463 - WEB CRAWLING/E SILVA
+517 - DATA/BUS BLAW DOC/MONTALT
+529 - BLAW BUS/SEGRETI
+605 - BLAW APPLICATIONS
+701 - APP DS BGOV
+730 - DATA/BGOV DATA/MATTHEWS
+734 – Equity ticker deletions
+770 - MAIL/DNS/NTWK SVCS
+821 - GD HUB
+1029 - BLAW TERMINAL & CORE APPS
+1177 - BBNA BWD
+1193 - BLAW INTERNAL IDEAS
+1898 - BBNA BGOV
+
+

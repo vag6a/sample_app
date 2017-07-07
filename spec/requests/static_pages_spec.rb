@@ -34,16 +34,16 @@ RSpec.describe "Static Pages", type: :model do
         it { should have_selector('title', text: full_title('Contact'))}
     end
 
-#   it "should have right link on the layout" do
-#       visit '/'
-      # click_link "About"
-       #page.should have_selector 'title', text: full_title('About Us')
-#       click_link "Help"
-#       page.should have_selector 'title', text: full_title('Help')
-#       click_link "Contact"
-#       page.should have_selector 'title', text: full_title('Contact')
-#       click_link "Home"
-#       click_link "Sign up now!"
-#       page.should have_selector 'title', text: full_title('Sign up')
-#   end 
+   it "should have right link on the layout" do
+       visit '/'
+       click_link "About"
+       page.should have_selector 'title', text: full_title('About Us')
+       click_link "Help"
+       page.should have_selector 'title', text: full_title('Help')
+       click_link "Contact"
+       page.should have_selector 'title', text: full_title('Contact')
+       click_link "Home"
+       click_link "Sign up now!"
+       page.should have_selector 'title', text: full_title('Sign up')
+   end 
 end

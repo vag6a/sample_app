@@ -8,6 +8,7 @@ class UsersController < ApplicationController
 
   # GET /users/1
   def show
+      @user = User.find(params[:id])
   end
 
   # GET /users/new
@@ -23,7 +24,11 @@ class UsersController < ApplicationController
   def create
     @user = User.new(user_params)
 
+      @user.password=params[:user][:password]
+      @user.password_confirmation=params[:user][:password_confirmation]
+
     if @user.save
+      flash[:success] = "Welcome to the sample App"
       redirect_to @user, notice: 'User was successfully created.'
     else
       render :new
