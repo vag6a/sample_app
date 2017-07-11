@@ -28,6 +28,7 @@ class UsersController < ApplicationController
       @user.password_confirmation=params[:user][:password_confirmation]
 
     if @user.save
+      sign_in @user
       flash[:success] = "Welcome to the sample App"
       redirect_to @user, notice: 'User was successfully created.'
     else

@@ -36,6 +36,8 @@ RSpec.describe "Static Pages", type: :model do
 
    it "should have right link on the layout" do
        visit '/'
+       click_link "Sign in"
+       page.should have_selector 'title', text: full_title('Sign in')
        click_link "About"
        page.should have_selector 'title', text: full_title('About Us')
        click_link "Help"

@@ -14,6 +14,7 @@ RSpec.describe User, type: :model do
     it { should respond_to(:password_digest) }
     it { should respond_to(:password) }
     it { should respond_to(:password_confirmation) }
+    it { should respond_to(:remember_token) }
     it { should respond_to(:authenticate) }
 
     it {should be_valid }
@@ -92,6 +93,13 @@ RSpec.describe User, type: :model do
             let(:user_for_invalid_pass) { found_user.authenticate("invalid") }
             it { should_not == user_for_invalid_pass }
             specify { user_for_invalid_pass.should be false }
+        end
+    end
+
+    describe "remember token" do
+        before { @user.save }
+        it "should have remember token not blank" do
+            subject.remember_token.should_not be_blank
         end
     end
 
