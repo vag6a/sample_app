@@ -1,9 +1,13 @@
 class UsersController < ApplicationController
   before_action :set_user, only: [:show, :edit, :update, :destroy]
 
+  before_action :signed_in_user, only: [:index, :edit, :update]
+  before_action :correct_user, only: [:edit, :update]
+  before_action :admin_user, only: :destroy
+
   # GET /users
   def index
-    @users = User.all
+    @users = User.paginate(page: params[:page])
   end
 
   # GET /users/1
@@ -38,7 +42,14 @@ class UsersController < ApplicationController
 
   # PATCH/PUT /users/1
   def update
+      @user = User.find(params[:id])
+
+      @user.password=params[:user][:password]
+      @user.password_confirmation=params[:user][:password_confirmation]
+
     if @user.update(user_params)
+      sign_in @user
+      flash[:success] = "Profile Updated"
       redirect_to @user, notice: 'User was successfully updated.'
     else
       render :edit
@@ -48,6 +59,7 @@ class UsersController < ApplicationController
   # DELETE /users/1
   def destroy
     @user.destroy
+    flash[:success] = "User destroyed"
     redirect_to users_url, notice: 'User was successfully destroyed.'
   end
 
@@ -61,4 +73,21 @@ class UsersController < ApplicationController
     def user_params
       params.require(:user).permit(:name, :email)
     end
+
+    def signed_in_user
+        unless signed_in?
+            store_location
+            redirect_to signin_path, notice: "Plese sign in"
+        end
+    end
+
+    def correct_user
+        @user = User.find(params[:id])
+        redirect_to root_path unless current_user?(@user)
+    end
+
+    def admin_user 
+        redirect_to root_path unless current_user.admin?
+    end
 end
+
