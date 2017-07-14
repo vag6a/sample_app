@@ -42,7 +42,6 @@ class UsersController < ApplicationController
 
   # PATCH/PUT /users/1
   def update
-      @user = User.find(params[:id])
 
       @user.password=params[:user][:password]
       @user.password_confirmation=params[:user][:password_confirmation]
