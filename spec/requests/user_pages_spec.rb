@@ -52,9 +52,17 @@ RSpec.describe "UserPages", type: :request do
 
     describe "profile page" do
         let (:foobar) { FactoryGirl.create(:user)}
+        let!(:m1) { FactoryGirl.create(:micropost, user: foobar, content: "Foo") }
+        let!(:m2) { FactoryGirl.create(:micropost, user: foobar, content: "Bar") }
         before { visit user_path(foobar) }
         it { should have_selector('h1', text: foobar.name)}
         it { should have_selector('title', text: foobar.name) }
+
+        describe "microposts" do
+            it { should have_content(m1.content) }
+            it { should have_content(m2.content) }
+            it { should have_content(foobar.microposts.count) }
+        end
     end
 
     describe "signup" do

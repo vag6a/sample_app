@@ -12,6 +12,21 @@ RSpec.describe "Static Pages", type: :model do
         before { visit '/'}
         it { should have_selector('h1', text: 'Sample App')}
         it { should have_selector('title', text: full_title('Home'))}
+        describe "for signed-in users" do
+            let(:user) { FactoryGirl.create(:user) }
+            before do
+                FactoryGirl.create(:micropost, user: user, content: "Lorem ipsum")
+                FactoryGirl.create(:micropost, user: user, content: "Doror sit amet")
+                sign_in user
+                visit root_path
+            end
+            it "should render user's feed" do
+                user.feed.each do |item|
+                    pae.should have_selector("li##{item.id}", text: item.content)
+                end
+            end
+
+        end
     end 
 
     describe "Help page" do
@@ -35,7 +50,7 @@ RSpec.describe "Static Pages", type: :model do
     end
 
    it "should have right link on the layout" do
-       visit '/'
+       visit signin_path
        click_link "Sign in"
        page.should have_selector 'title', text: full_title('Sign in')
        click_link "About"

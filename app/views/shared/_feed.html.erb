@@ -1,0 +1,6 @@
+<% if @feed_items && @feed_items.any? then %>
+<%= puts "!!!!!!!!!!!!! I am here" %>
+<ol class="microposts">
+<%= render 'shared/feed_item', collection: @feed_items %>
+</ol>
+<% end %>

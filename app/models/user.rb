@@ -2,6 +2,8 @@ class User < ApplicationRecord
 
     has_secure_password
 
+    has_many :microposts, dependent: :destroy
+
     before_save { |user| user.email = user.email.downcase }
     before_save :create_remember_token
 
@@ -11,7 +13,12 @@ class User < ApplicationRecord
             uniqueness: {case_sensitive: false }
     validates :password, length: { minimum: 6 }
     validates :password_confirmation, presence: true
-    #
+
+
+    def feed
+        #this is only proto feed
+        Micropost.where("user_id = ?", id)
+    end
 
     private
 

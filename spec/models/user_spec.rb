@@ -1,11 +1,11 @@
 require 'rails_helper'
 
 RSpec.describe User, type: :model do
-
     before do
         @user = User.new(name:"Example User", email:"user@example.com",
                              password: "foobar", password_confirmation:"foobar")
     end
+
 
     subject { @user }
 
@@ -17,6 +17,8 @@ RSpec.describe User, type: :model do
     it { should respond_to(:remember_token) }
     it { should respond_to(:admin) }
     it { should respond_to(:authenticate) }
+    it { should respond_to(:microposts) }
+    it { should respond_to(:feed) }
 
     it {should be_valid }
     it { should_not be_admin }
@@ -105,4 +107,33 @@ RSpec.describe User, type: :model do
         end
     end
 
+    describe "micropost association" do
+        before { @user.save }
+        let!(:older_micropost) do 
+            FactoryGirl.create(:micropost, user: @user, created_at: 1.day.ago)
+        end
+        let!(:newer_micropost) do 
+            FactoryGirl.create(:micropost, user: @user, created_at: 1.hour.ago)
+        end
+        it 'should have right microposts in right order' do 
+            @user.microposts.should == [newer_micropost, older_micropost]
+        end
+        it "should destroy accosiated microposts" do
+            microposts = @user.microposts
+            @user.destroy
+            microposts.each do |m|
+                Micropost.find_by_id(m.id).should be_nil
+            end
+        end
+
+        describe "status" do
+            let(:unfollowed_post) { FactoryGirl.create(:micropost, user: FactoryGirl.create(:user)) }
+            let(:feed) { @user.feed }
+            it "feed" do
+                feed.should include(older_micropost)
+                feed.should include(newer_micropost)
+                feed.should_not include(unfollowed_post)
+            end
+        end
+    end
 end
