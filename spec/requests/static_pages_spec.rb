@@ -1,9 +1,9 @@
 require 'rails_helper'
+#require 'capybara/rails'
+#require 'capybara/rspec'
 require_relative '../support/utilities'
-require 'capybara/rails'
-require 'capybara/rspec'
 
-RSpec.describe "Static Pages", type: :model do
+RSpec.describe "Static Pages", type: [:model, :request] do
 
     subject { page }
 
@@ -12,20 +12,19 @@ RSpec.describe "Static Pages", type: :model do
         before { visit '/'}
         it { should have_selector('h1', text: 'Sample App')}
         it { should have_selector('title', text: full_title('Home'))}
-        let(:user) { FactoryGirl.create(:user) }
         describe "for signed-in users" do
+            let(:user) { FactoryGirl.create(:user) }
             before do
+                sign_in user 
                 FactoryGirl.create(:micropost, user: user, content: "Lorem ipsum")
                 FactoryGirl.create(:micropost, user: user, content: "Doror sit amet")
-                sign_in user
                 visit root_path
             end
             it "should render user's feed" do
                 user.feed.each do |item|
-                    pae.should have_selector("li##{item.id}", text: item.content)
+                    page.should have_selector("li##{item.id}", text: item.content)
                 end
             end
-
         end
     end 
 
@@ -49,20 +48,18 @@ RSpec.describe "Static Pages", type: :model do
         it { should have_selector('title', text: full_title('Contact'))}
     end
 
-    before do
-       visit '/'
-    end
-   it "should have right link on the layout" do
-       click_link "Sign in"
-       page.should have_selector 'title', text: full_title('Sign in')
-       click_link "About"
-       page.should have_selector 'title', text: full_title('About Us')
-       click_link "Help"
-       page.should have_selector 'title', text: full_title('Help')
-       click_link "Contact"
-       page.should have_selector 'title', text: full_title('Contact')
-       click_link "Home"
-       click_link "Sign up now!"
-       page.should have_selector 'title', text: full_title('Sign up')
-   end 
+#   it "should have right link on the layout" do
+#       visit signin_page
+#       click_link "Sign in"
+#       page.should have_selector 'title', text: full_title('Sign in')
+#       click_link "About"
+#       page.should have_selector 'title', text: full_title('About Us')
+#       click_link "Help"
+#       page.should have_selector 'title', text: full_title('Help')
+#       click_link "Contact"
+#       page.should have_selector 'title', text: full_title('Contact')
+#       click_link "Home"
+#       click_link "Sign up now!"
+#       page.should have_selector 'title', text: full_title('Sign up')
+#   end 
 end

@@ -18,6 +18,7 @@ class User < ApplicationRecord
     def feed
         #this is only proto feed
         Micropost.where("user_id = ?", id)
+        #self.microposts
     end
 
     private
