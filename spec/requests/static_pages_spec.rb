@@ -12,8 +12,8 @@ RSpec.describe "Static Pages", type: :model do
         before { visit '/'}
         it { should have_selector('h1', text: 'Sample App')}
         it { should have_selector('title', text: full_title('Home'))}
+        let(:user) { FactoryGirl.create(:user) }
         describe "for signed-in users" do
-            let(:user) { FactoryGirl.create(:user) }
             before do
                 FactoryGirl.create(:micropost, user: user, content: "Lorem ipsum")
                 FactoryGirl.create(:micropost, user: user, content: "Doror sit amet")
@@ -49,8 +49,10 @@ RSpec.describe "Static Pages", type: :model do
         it { should have_selector('title', text: full_title('Contact'))}
     end
 
+    before do
+       visit '/'
+    end
    it "should have right link on the layout" do
-       visit signin_path
        click_link "Sign in"
        page.should have_selector 'title', text: full_title('Sign in')
        click_link "About"
